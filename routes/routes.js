@@ -2,6 +2,7 @@ const express = require("express");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const router = express.Router();
+const db = require("../models");
 
 router.get("/", function (req, res) {
   let placeholder = { test: "Testing!" };
@@ -19,7 +20,13 @@ router.get("/scrapenews", function (req, res) {
       article.link = $(element).children("h2").children("a").attr("href");
       article.description = $(element).children("p").text();
 
-      console.log(article);
+      db.Article.create(article)
+        .then(function (dbArticle) {
+          console.log(dbArticle);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
     });
   });
 });

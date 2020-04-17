@@ -1,7 +1,6 @@
 var express = require("express");
 var axios = require("axios");
 const mongoose = require("mongoose");
-
 var app = express();
 var PORT = process.env.PORT || 8080;
 
@@ -15,6 +14,11 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 
 app.set("view engine", "handlebars");
+
+mongoose.connect("mongodb://localhost/news_db", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 var routes = require("./routes/routes");
 
