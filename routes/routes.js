@@ -5,8 +5,17 @@ const router = express.Router();
 const db = require("../models");
 
 router.get("/", function (req, res) {
-  let placeholder = { test: "Testing!" };
-  res.render("index", placeholder);
+  db.Article.find({})
+    .lean()
+    .then(function (dbArticle) {
+      let allArticles = {
+        articles: dbArticle,
+      };
+      res.render("index", allArticles);
+    })
+    .catch(function (err) {
+      res.json(err);
+    });
 });
 
 router.get("/scrapenews", function (req, res) {
