@@ -18,6 +18,7 @@ app.set("view engine", "handlebars");
 mongoose.connect("mongodb://localhost/news_db", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 var routes = require("./routes/routes");

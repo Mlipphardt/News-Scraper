@@ -18,6 +18,30 @@ router.get("/", function (req, res) {
     });
 });
 
+router.get("/favorites", function (req, res) {
+  db.Article.find({})
+    .lean()
+    .then(function (dbArticle) {
+      let allArticles = {
+        articles: dbArticle,
+      };
+      res.render("favorites", allArticles);
+    })
+    .catch(function (err) {
+      res.json(err);
+    });
+});
+
+router.get("/api/articles", function (req, res) {
+  db.Article.find({})
+    .then(function (dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function (err) {
+      res.json(err);
+    });
+});
+
 router.get("/scrapenews", function (req, res) {
   axios.get("https://www.npr.org/sections/news/").then(function (response) {
     let $ = cheerio.load(response.data);
@@ -41,7 +65,16 @@ router.get("/scrapenews", function (req, res) {
 });
 
 router.put("/favorites/:id", function (req, res) {
-  db.Article.findOneAndUpdate({});
+  db.Article.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: { favorite: req.body.favorite } },
+    function (err, dbArticle) {
+      if (err) {
+        console.log(err);
+      }
+      console.log("Updated article!");
+    }
+  );
 });
 
 module.exports = router;

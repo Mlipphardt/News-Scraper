@@ -2,6 +2,7 @@
     <div class="col-lg-1"></div>
     <div class="col-lg-10">
         {{#each articles}}
+        {{#if favorite}}
         <div class="article-div card my-4">
             <div class="card-header bg-primary">
                 <a href={{this.link}}>{{this.title}}</a>
@@ -14,6 +15,7 @@
                 <button class="btn bg-success favorite-button" data-id={{this._id}}>Favorite</button>
             </div>
         </div>
+        {{/if}}
         {{/each}}
     </div>
     <div class="col-lg-1"></div>
