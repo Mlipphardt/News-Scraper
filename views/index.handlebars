@@ -13,9 +13,18 @@
         <div class="col-lg-1"></div>
         <div class="col-lg-10">
             {{#each articles}}
-            <div class="article-div">
-                <a href={{this.link}}>{{this.title}}</a>
-                <p>{{this.description}}</p>
+            <div class="article-div card my-4">
+                <div class="card-header">
+                    <a href={{this.link}}>{{this.title}}</a>
+                </div>
+                <div class="card-body">
+                    <p>{{this.description}}</p>
+                </div>
+                <div class="card-footer text-right">
+                    <button class="btn bg-success">Notes</button>
+                    <button class="btn bg-success">Favorite</button>
+
+                </div>
             </div>
             {{/each}}
         </div>

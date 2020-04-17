@@ -19,6 +19,10 @@ var ArticleSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Note",
   },
+  favorite: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 var Article = mongoose.model("Article", ArticleSchema);
