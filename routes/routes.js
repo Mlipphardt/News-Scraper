@@ -40,4 +40,8 @@ router.get("/scrapenews", function (req, res) {
   });
 });
 
+router.put("/favorites/:id", function (req, res) {
+  db.Article.findOneAndUpdate({});
+});
+
 module.exports = router;
