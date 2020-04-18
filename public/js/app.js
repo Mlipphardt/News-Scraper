@@ -52,4 +52,20 @@ $(document).on("click", "#delete-articles-button", function (event) {
 $(document).on("click", ".notes-button", function (event) {
   let id = $(this).attr("data-id");
   console.log("Note opened. Article ID is " + id);
+  $("#add-note-button").attr("data-id", id);
+});
+
+$(document).on("click", "#add-note-button", function (event) {
+  let id = $(this).attr("data-id");
+  let newNote = {
+    title: $("#note-title").val().trim(),
+    body: $("#note-body").val().trim(),
+  };
+  $.post("/api/notes/" + id, newNote).then(function (err, res) {
+    if (err) {
+      console.log(err);
+    } else {
+      location.reload();
+    }
+  });
 });

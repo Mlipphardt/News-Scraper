@@ -52,12 +52,13 @@ router.get("/api/notes", function (req, res) {
     });
 });
 
-router.post("/api/notes", function (req, res) {
+router.post("/api/notes/:id", function (req, res) {
   db.Note.create(req.body)
     .then(function (dbNote) {
+      console.log("Posting note...");
       return db.Article.findOneAndUpdate(
         { _id: req.params.id },
-        { $push: { notes: dbNote._id } },
+        { $push: { note: dbNote._id } },
         { new: true }
       );
     })

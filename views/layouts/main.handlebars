@@ -35,12 +35,29 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body text-center"></div>
+                <div class="modal-body text-center">
+                    <div id="note-holder">
+                    </div>
+                    <div id="form-holder">
+                        <h6>Add a note!</h6>
+                        <hr class="w-100">
+                        <form>
+                            <div class="form-group">
+                                <label for="note-title">Note Title:</label>
+                                <input type="text" class="form-control" id="note-title" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="note-body">Your Note:</label>
+                                <textarea class="form-control" id="note-body" rows="1"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary" id="add-entry-button">
+                    <button type="button" class="btn btn-primary" id="add-note-button">
                         Submit
                     </button>
                 </div>
