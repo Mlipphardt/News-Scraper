@@ -4,6 +4,7 @@ const cheerio = require("cheerio");
 const router = express.Router();
 const db = require("../models");
 
+//Home route, renders with Handlebars and passes article array.
 router.get("/", function (req, res) {
   db.Article.find({})
     .lean()
@@ -18,6 +19,7 @@ router.get("/", function (req, res) {
     });
 });
 
+//Get all favorited articles.
 router.get("/favorites", function (req, res) {
   db.Article.find({})
     .lean()
@@ -32,6 +34,7 @@ router.get("/favorites", function (req, res) {
     });
 });
 
+//View all articles.
 router.get("/api/articles", function (req, res) {
   db.Article.find({})
     .then(function (dbArticle) {
@@ -42,9 +45,11 @@ router.get("/api/articles", function (req, res) {
     });
 });
 
-router.get("/api/notes", function (req, res) {
-  db.Note.find({})
-    .then(function (dbNote) {
+//Get a single article by id and populate it with its notes.
+router.get("/api/article/:id", function (req, res) {
+  db.Article.findOne({ _id: req.params.id })
+    .populate("note")
+    .then(function (dbArticle) {
       res.json(dbArticle);
     })
     .catch(function (err) {
@@ -52,6 +57,18 @@ router.get("/api/notes", function (req, res) {
     });
 });
 
+//Get all notes
+router.get("/api/notes", function (req, res) {
+  db.Note.find({})
+    .then(function (dbNote) {
+      res.json(dbNote);
+    })
+    .catch(function (err) {
+      res.json(err);
+    });
+});
+
+//Post a note. When posted, add to note array in corresponding article.
 router.post("/api/notes/:id", function (req, res) {
   db.Note.create(req.body)
     .then(function (dbNote) {
@@ -70,6 +87,7 @@ router.post("/api/notes/:id", function (req, res) {
     });
 });
 
+//Scrapes news from NPR website.
 router.get("/scrapenews", function (req, res) {
   axios.get("https://www.npr.org/sections/news/").then(function (response) {
     let $ = cheerio.load(response.data);
@@ -92,6 +110,7 @@ router.get("/scrapenews", function (req, res) {
   });
 });
 
+//Updates an article as favorited or unfavorited.
 router.put("/favorites/:id", function (req, res) {
   db.Article.findOneAndUpdate(
     { _id: req.params.id },
@@ -105,11 +124,32 @@ router.put("/favorites/:id", function (req, res) {
   );
 });
 
+//Clears all articles from the collection.
 router.delete("/api/articles", function (req, res) {
   db.Article.deleteMany({}, function (err) {
     if (err) {
       console.log(err);
     }
+  });
+});
+
+//Deletes note by ID, and then removes its reference from its article
+router.delete("/api/note/:id", function (req, res) {
+  db.Note.findOneAndDelete({ _id: req.params.id }, function (err) {
+    if (err) {
+      console.log(err);
+    }
+    db.Article.findOneAndUpdate(
+      { notes: req.params.id },
+      { $pull: { notes: req.params.id } },
+      function (err, res) {
+        if (err) {
+          console.log(err);
+        }
+        res.json("I did it");
+      }
+    );
+    res.end();
   });
 });
 
