@@ -26,3 +26,25 @@ $(document).on("click", ".favorite-button", function () {
     });
   }
 });
+
+$(document).on("click", "#scrape-button", function (event) {
+  event.preventDefault();
+  $.get("/scrapenews").then(function (err, res) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(res);
+    location.reload();
+  });
+});
+
+$(document).on("click", "#delete-articles-button", function (event) {
+  event.preventDefault();
+  $.ajax({ type: "DELETE", url: "/api/articles" }).then(function (err, res) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(res);
+    location.reload();
+  });
+});
