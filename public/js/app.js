@@ -48,3 +48,8 @@ $(document).on("click", "#delete-articles-button", function (event) {
     location.reload();
   });
 });
+
+$(document).on("click", ".notes-button", function (event) {
+  let id = $(this).attr("data-id");
+  console.log("Note opened. Article ID is " + id);
+});
