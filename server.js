@@ -15,7 +15,9 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 
 app.set("view engine", "handlebars");
 
-mongoose.connect("mongodb://localhost/news_db", {
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news_db";
+
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
