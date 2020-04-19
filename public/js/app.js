@@ -28,8 +28,11 @@ function getNotes(id) {
 $(document).on("click", ".favorite-button", function () {
   let id = $(this).attr("data-id");
   let favorite = $(this).attr("data-favorited");
-  console.log(favorite);
   if (favorite === "false") {
+    $(this).removeClass("bg-success");
+    $(this).addClass("bg-warning");
+    $(this).text("In Favorites");
+    $(this).attr("data-favorited", "true");
     $.ajax({
       type: "PUT",
       url: "/favorites/" + id,
@@ -38,10 +41,12 @@ $(document).on("click", ".favorite-button", function () {
       if (err) {
         console.log(err);
       }
-      console.log("Please?");
-      console.log(res);
     });
   } else {
+    $(this).removeClass("bg-warning");
+    $(this).addClass("bg-success");
+    $(this).text("Favorite");
+    $(this).attr("data-favorited", "false");
     $.ajax({
       type: "PUT",
       url: "/favorites/" + id,
@@ -51,7 +56,6 @@ $(document).on("click", ".favorite-button", function () {
       if (err) {
         console.log(err);
       }
-      console.log(res);
     });
   }
 });

@@ -12,9 +12,11 @@
             <div class="card-footer bg-info text-right">
                 <button class="btn bg-success notes-button" data-toggle="modal" data-target="#note-modal"
                     data-id={{this._id}}>Notes</button>
-
-                <button class="btn bg-success favorite-button" data-favorited={{this.favorite}}
-                    data-id={{this._id}}>Favorite</button>
+                {{#if favorite}}
+                <button class="btn bg-warning favorite-button" data-favorited={{this.favorite}} data-id={{this._id}}>In
+                    Favorites</button> {{else}} <button class="btn bg-success favorite-button"
+                    data-favorited={{this.favorite}} data-id={{this._id}}>Favorite</button>
+                {{/if}}
             </div>
         </div>
         {{/each}}
