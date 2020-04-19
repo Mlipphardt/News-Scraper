@@ -58,13 +58,10 @@ $(document).on("click", ".favorite-button", function () {
 
 $(document).on("click", "#scrape-button", function (event) {
   event.preventDefault();
-  console.log("Retrieving articles...");
   $.get("/scrapenews").then(function (res, err) {
-    console.log("Inside the then");
     if (err) {
       console.log(err);
     }
-    console.log(res);
     location.reload();
   });
 });
@@ -72,11 +69,10 @@ $(document).on("click", "#scrape-button", function (event) {
 $(document).on("click", "#delete-articles-button", function (event) {
   event.preventDefault();
   $.ajax({ type: "DELETE", url: "/api/articles" }).then(function (res, err) {
-    console.log("Yeet yeet");
     if (err) {
       console.log(err);
     }
-    console.log(res);
+    location.reload();
   });
 });
 
