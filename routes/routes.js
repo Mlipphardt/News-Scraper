@@ -101,10 +101,10 @@ router.get("/scrapenews", function (req, res) {
 
       db.Article.create(article)
         .then(function (dbArticle) {
-          console.log(dbArticle);
+          res.json(dbArticle);
         })
         .catch(function (err) {
-          console.log(err);
+          res.json(err);
         });
     });
   });
@@ -126,10 +126,8 @@ router.put("/favorites/:id", function (req, res) {
 
 //Clears all articles from the collection.
 router.delete("/api/articles", function (req, res) {
-  db.Article.deleteMany({}, function (err) {
-    if (err) {
-      console.log(err);
-    }
+  db.Article.deleteMany({}).then(function (dbArticle) {
+    res.json(dbArticle);
   });
 });
 
@@ -142,14 +140,15 @@ router.delete("/api/note/:id", function (req, res) {
     db.Article.findOneAndUpdate(
       { notes: req.params.id },
       { $pull: { notes: req.params.id } },
-      function (err, res) {
+      function (dbArticle, err) {
         if (err) {
           console.log(err);
         }
-        res.json("I did it");
       }
     );
-    res.end();
+  }).then(function (dbNote) {
+    console.log("deleted");
+    res.json(dbNote);
   });
 });
 
