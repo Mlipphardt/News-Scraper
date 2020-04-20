@@ -11,17 +11,27 @@ Using the application online is as easy as clicking the "Scrape Articles" button
 
 ### Installing locally
 ---
-By SSH--
+By SSH
 
 `git clone git@github.com:Mlipphardt/News-Scraper.git`
 
 By HTTPS
+
 `https://github.com/Mlipphardt/News-Scraper.git`
 
-You will also need to install MongoDB from the [MongoDB website.](mongodb.com/download-center/community MongoDB download link) 
+Node.js is required for the server and can be downloaded [here.](https://nodejs.org/en/download/ NodeJS download.)
 
+Once installed, run "npm install" in the root folder in order to retrieve the required packages.
+
+You will also need to install MongoDB from the [MongoDB website.](mongodb.com/download-center/community MongoDB download link)
+
+Once installed, run the command "mongod" in your terminal in order to start the local MongoDB database. Then, 'node server' in the root folder in order to start the app. 
+
+---
 ### The tech behind it
 * JavaScript with Node.js for server code.
 * Handlebars for html templating.
 * MongoDB for NoSQL database to store articles and commented notes.
 * Jquery for dynamic html updating.
+* Cheerio and axios in order to scrape html.
+* Mongoose for interacting with MongoDB.
