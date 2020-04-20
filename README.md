@@ -11,7 +11,8 @@ Using the application online is as easy as clicking the "Scrape Articles" button
 
 ### Installing locally
 ---
-By SSH
+By SSH--
+
 `git clone git@github.com:Mlipphardt/News-Scraper.git`
 
 By HTTPS
