@@ -3,7 +3,7 @@ Full-stack application that uses webscraping to allow users to gather up news ar
 
 ## [Give it a try!](https://centralized-news.herokuapp.com/ "News-Scraper at Heroku")
 ---
-![News Scraper in action.](https://github.com/Mlipphardt/News-Scraper/blob/master/public/images/demo-introduction.png "News Scraper in action.")
+![News Scraper in action.](https://github.com/Mlipphardt/News-Scraper/blob/master/public/images/Demo-introduction.png "News Scraper in action.")
 
 # How it works
 ---
