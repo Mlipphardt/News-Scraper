@@ -1,2 +1,2 @@
 # News-Scraper
-Website that allows users to gather up news article, save them, and comment on them.
+Website that uses webscraping to allow users to gather up news articles, save them, and comment on them.
