@@ -90,14 +90,47 @@ router.post("/api/notes/:id", function (req, res) {
 //Scrapes news from NPR website.
 router.get("/scrapenews", function (req, res) {
   axios.get("https://www.npr.org/sections/news/").then(function (response) {
+    console.log(response.data);
     let $ = cheerio.load(response.data);
-
     $("div.item-info").each(function (i, element) {
       let article = {};
 
       article.title = $(element).children("h2").children("a").text();
       article.link = $(element).children("h2").children("a").attr("href");
       article.description = $(element).children("p").text();
+
+      db.Article.create(article)
+        .then(function (dbArticle) {
+          res.json(dbArticle);
+        })
+        .catch(function (err) {
+          res.json(err);
+        });
+    });
+  });
+});
+
+router.get("/scrapenyt", function (req, res) {
+  axios.get("https://www.nytimes.com/section/world").then(function (response) {
+    let $ = cheerio.load(response.data);
+    console.log("Cheerio should be loaded");
+    $("article").each(function (i, element) {
+      console.log("hi");
+      let article = {};
+
+      article.title = $(element)
+        .children("div")
+        .children("h2")
+        .children("a")
+        .text();
+      article.link = $(element)
+        .children("div")
+        .children("h2")
+        .children("a")
+        .attr("href");
+
+      article.description = $(element).children("div").children("p").text();
+      console.log(article);
 
       db.Article.create(article)
         .then(function (dbArticle) {

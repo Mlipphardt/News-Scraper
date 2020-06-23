@@ -70,6 +70,18 @@ $(document).on("click", "#scrape-button", function (event) {
   });
 });
 
+$(document).on("click", "#scrape-msn-button", function (event) {
+  event.preventDefault();
+  console.log("clicked msn scrape");
+
+  $.get("/scrapenyt").then(function (res, err) {
+    if (err) {
+      console.log(err);
+    }
+    location.reload();
+  });
+});
+
 $(document).on("click", "#delete-articles-button", function (event) {
   event.preventDefault();
   $.ajax({ type: "DELETE", url: "/api/articles" }).then(function (res, err) {
