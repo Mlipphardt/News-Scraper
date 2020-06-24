@@ -25,6 +25,11 @@ function getNotes(id) {
   });
 }
 
+function formClear() {
+  $("#note-title").val("");
+  $("#note-body").val("");
+}
+
 $(document).on("click", ".favorite-button", function () {
   let id = $(this).attr("data-id");
   let favorite = $(this).attr("data-favorited");
@@ -136,5 +141,6 @@ $(document).on("click", "#add-note-button", function (event) {
       console.log(err);
     }
     getNotes(id);
+    formClear();
   });
 });
