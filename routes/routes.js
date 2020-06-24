@@ -143,6 +143,39 @@ router.get("/scrapenyt", function (req, res) {
   });
 });
 
+router.get("/scrapefox", function (req, res) {
+  axios.get("https://www.foxnews.com/").then(function (response) {
+    let $ = cheerio.load(response.data);
+    console.log("Cheerio should be loaded");
+    $("article").each(function (i, element) {
+      let article = {};
+
+      article.title = $(element)
+        .children("div.info")
+        .children("header")
+        .children("h2")
+        .children("a")
+        .text();
+      article.link = $(element)
+        .children("div.info")
+        .children("header")
+        .children("h2")
+        .children("a")
+        .attr("href");
+      article.description = article.title;
+      console.log(article);
+
+      db.Article.create(article)
+        .then(function (dbArticle) {
+          res.json(dbArticle);
+        })
+        .catch(function (err) {
+          res.json(err);
+        });
+    });
+  });
+});
+
 //Updates an article as favorited or unfavorited.
 router.put("/favorites/:id", function (req, res) {
   db.Article.findOneAndUpdate(

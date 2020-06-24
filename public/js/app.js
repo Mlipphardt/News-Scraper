@@ -70,11 +70,20 @@ $(document).on("click", "#scrape-button", function (event) {
   });
 });
 
-$(document).on("click", "#scrape-msn-button", function (event) {
+$(document).on("click", "#scrape-nyt-button", function (event) {
   event.preventDefault();
-  console.log("clicked msn scrape");
-
   $.get("/scrapenyt").then(function (res, err) {
+    if (err) {
+      console.log(err);
+    }
+    location.reload();
+  });
+});
+
+$(document).on("click", "#scrape-fox-button", function (event) {
+  event.preventDefault();
+
+  $.get("/scrapefox").then(function (res, err) {
     if (err) {
       console.log(err);
     }
